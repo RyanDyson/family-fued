@@ -7,7 +7,9 @@ import ScoreBoard from "./components/ScoreBoard";
 import WrongGuesses from "./components/WrongGuesses";
 import { Button } from "@/components/ui/button";
 import { questionData } from "./question";
-
+import { WrongGuessesOverlay } from "./components/WrongGuessOverlay";
+import { useSound } from "./useSound";
+import { QuestionOverlay } from "./components/QuestionOverlay";
 // Sample game data
 const Team = [
   { name: "Team 1", score: 0 },
@@ -22,6 +24,8 @@ export default function Game() {
   const [wrongGuesses, setWrongGuesses] = useState(0);
   const [questionsAnswered, setQuestionsAnswered] = useState<number[]>([]);
   const [teams, setTeams] = useState(Team);
+  const [showWrongOverlay, setShowWrongOverlay] = useState(false);
+  const [showQuestionOverlay, setShowQuestionOverlay] = useState(false);
 
   const handleReveal = (index: number) => {
     if (!revealedAnswers.includes(index)) {
@@ -31,9 +35,12 @@ export default function Game() {
   };
 
   const handleWrongGuess = () => {
-    const wrongSound = new Audio("/wrong-sound.mp3");
-    wrongSound.play();
+    useSound();
     setWrongGuesses(wrongGuesses + 1);
+    setShowWrongOverlay(true);
+    setTimeout(() => {
+      setShowWrongOverlay(false);
+    }, 2000);
   };
 
   const handleNextQuestion = () => {
@@ -44,6 +51,10 @@ export default function Game() {
       setQuestionsAnswered([...questionsAnswered, randi]);
       setScore(0);
       setWrongGuesses(0);
+      setShowQuestionOverlay(true);
+      setTimeout(() => {
+        setShowQuestionOverlay(false);
+      }, 2000);
     }
   };
 
@@ -69,27 +80,48 @@ export default function Game() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 text-white p-8">
-      <h1 className="text-4xl font-bold text-center mb-8">Family Feud Game</h1>
-      <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-lg p-8">
-        <Question question={questionData[currentQuestion].Question} />
-        <AnswerList
-          answers={questionData[currentQuestion].Answer}
-          revealedAnswers={revealedAnswers}
-          onReveal={handleReveal}
-        />
-        <div className="flex justify-between items-center mt-8">
-          <ScoreBoard score={score} />
-          <WrongGuesses wrongGuesses={wrongGuesses} />
+    <>
+      <QuestionOverlay
+        question={questionData[currentQuestion].Question}
+        show={showQuestionOverlay}
+      />
+      <WrongGuessesOverlay
+        wrongGuesses={wrongGuesses}
+        show={showWrongOverlay}
+      />
+      <div className="relative z-10 min-h-screen polkadot-bg  text-white p-8">
+        <h1 className="text-2xl font-bold text-center mb-4 bg-blue-800/70 backdrop-blur-md rounded-3xl p-4 border-8 border-orange-400">
+          Hall 10 Family Feud: Trivia Night
+        </h1>
+        <div className="border-8 border-orange-400 max-w-4xl mx-auto bg-blue-800/70 backdrop-blur-md rounded-3xl p-8">
+          <Question question={questionData[currentQuestion].Question} />
+          <AnswerList
+            answers={questionData[currentQuestion].Answer}
+            revealedAnswers={revealedAnswers}
+            onReveal={handleReveal}
+          />
+          <div className="flex justify-between items-center mt-4">
+            <ScoreBoard score={score} />
+            <WrongGuesses wrongGuesses={wrongGuesses} />
+          </div>
+          <div className="mt-4 flex justify-between">
+            <Button
+              onClick={handleWrongGuess}
+              disabled={wrongGuesses >= 3}
+              variant="destructive"
+            >
+              Wrong Answer (X)
+            </Button>
+
+            <Button
+              onClick={handleNextQuestion}
+              disabled={currentQuestion >= questionData.length - 1}
+            >
+              Next Question
+            </Button>
+          </div>
         </div>
-        <div className="mt-8 flex justify-between">
-          <Button
-            onClick={handleWrongGuess}
-            disabled={wrongGuesses >= 3}
-            variant="destructive"
-          >
-            Wrong Answer (X)
-          </Button>
+        <div className="mt-4 max-w-4xl mx-auto mb-8 bg-blue-800/70 backdrop-blur-md rounded-3xl p-4 border-8 border-orange-400">
           <div className="flex justify-between space-x-4">
             {teams.map((team, index) => (
               <div key={index} className="flex flex-col items-center">
@@ -98,18 +130,14 @@ export default function Game() {
                 <Button onClick={() => handleTeamWin(index)}>Wins</Button>
               </div>
             ))}
-            <Button onClick={() => resetTeamScore()}>Reset</Button>
-            <Button onClick={() => handleAddTeam()}>Add Team</Button>
-            <Button onClick={() => handleRemoveTeam()}>Remove Team</Button>
+            <div className="flex flex-col items-end space-y-1">
+              <Button onClick={() => resetTeamScore()}>Reset</Button>
+              <Button onClick={() => handleAddTeam()}>Add Team</Button>
+              <Button onClick={() => handleRemoveTeam()}>Remove Team</Button>
+            </div>
           </div>
-          <Button
-            onClick={handleNextQuestion}
-            disabled={currentQuestion >= questionData.length - 1}
-          >
-            Next Question
-          </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
