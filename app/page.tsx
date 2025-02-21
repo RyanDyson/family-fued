@@ -8,7 +8,6 @@ import WrongGuesses from "./components/WrongGuesses";
 import { Button } from "@/components/ui/button";
 import { questionData } from "./question";
 import { WrongGuessesOverlay } from "./components/WrongGuessOverlay";
-import { useSound } from "./useSound";
 import { QuestionOverlay } from "./components/QuestionOverlay";
 // Sample game data
 const Team = [
@@ -35,7 +34,6 @@ export default function Game() {
   };
 
   const handleWrongGuess = () => {
-    useSound();
     setWrongGuesses(wrongGuesses + 1);
     setShowWrongOverlay(true);
     setTimeout(() => {
