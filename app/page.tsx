@@ -1,101 +1,115 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import Question from "./components/Question";
+import AnswerList from "./components/AnswerList";
+import ScoreBoard from "./components/ScoreBoard";
+import WrongGuesses from "./components/WrongGuesses";
+import { Button } from "@/components/ui/button";
+import { questionData } from "./question";
+
+// Sample game data
+const Team = [
+  { name: "Team 1", score: 0 },
+  { name: "Team 2", score: 0 },
+  { name: "Team 3", score: 0 },
+];
+
+export default function Game() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [revealedAnswers, setRevealedAnswers] = useState<number[]>([]);
+  const [score, setScore] = useState(0);
+  const [wrongGuesses, setWrongGuesses] = useState(0);
+  const [questionsAnswered, setQuestionsAnswered] = useState<number[]>([]);
+  const [teams, setTeams] = useState(Team);
+
+  const handleReveal = (index: number) => {
+    if (!revealedAnswers.includes(index)) {
+      setRevealedAnswers([...revealedAnswers, index]);
+      setScore(score + questionData[currentQuestion].Answer[index].points);
+    }
+  };
+
+  const handleWrongGuess = () => {
+    const wrongSound = new Audio("/wrong-sound.mp3");
+    wrongSound.play();
+    setWrongGuesses(wrongGuesses + 1);
+  };
+
+  const handleNextQuestion = () => {
+    const randi = Math.floor(Math.random() * questionData.length);
+    if (!questionsAnswered.includes(randi)) {
+      setCurrentQuestion(randi);
+      setRevealedAnswers([]);
+      setQuestionsAnswered([...questionsAnswered, randi]);
+      setScore(0);
+      setWrongGuesses(0);
+    }
+  };
+
+  const handleRemoveTeam = () => {
+    setTeams(teams.slice(0, -1));
+  };
+
+  const handleAddTeam = () => {
+    const newTeam = { name: `Team ${teams.length + 1}`, score: 0 };
+    setTeams([...teams, newTeam]);
+  };
+
+  const resetTeamScore = () => {
+    setTeams(teams.map((team) => ({ ...team, score: 0 })));
+  };
+
+  const handleTeamWin = (index: number) => {
+    setTeams(
+      teams.map((team, i) =>
+        i === index ? { ...team, score: team.score + score } : team
+      )
+    );
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 text-white p-8">
+      <h1 className="text-4xl font-bold text-center mb-8">Family Feud Game</h1>
+      <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-md rounded-lg p-8">
+        <Question question={questionData[currentQuestion].Question} />
+        <AnswerList
+          answers={questionData[currentQuestion].Answer}
+          revealedAnswers={revealedAnswers}
+          onReveal={handleReveal}
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div className="flex justify-between items-center mt-8">
+          <ScoreBoard score={score} />
+          <WrongGuesses wrongGuesses={wrongGuesses} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="mt-8 flex justify-between">
+          <Button
+            onClick={handleWrongGuess}
+            disabled={wrongGuesses >= 3}
+            variant="destructive"
+          >
+            Wrong Answer (X)
+          </Button>
+          <div className="flex justify-between space-x-4">
+            {teams.map((team, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <h2 className="text-xl font-bold">{team.name}</h2>
+                <p className="text-2xl font-bold">{team.score}</p>
+                <Button onClick={() => handleTeamWin(index)}>Wins</Button>
+              </div>
+            ))}
+            <Button onClick={() => resetTeamScore()}>Reset</Button>
+            <Button onClick={() => handleAddTeam()}>Add Team</Button>
+            <Button onClick={() => handleRemoveTeam()}>Remove Team</Button>
+          </div>
+          <Button
+            onClick={handleNextQuestion}
+            disabled={currentQuestion >= questionData.length - 1}
+          >
+            Next Question
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
