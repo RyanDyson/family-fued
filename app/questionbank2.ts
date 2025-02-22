@@ -1,18 +1,5 @@
 export const questionData = [
   {
-    Question: "Name a stereotype about college students",
-    Answer: [
-      { text: "Sleep-Deprived", points: 10 },
-      { text: "Broke", points: 9 },
-      { text: "Lazy", points: 8 },
-      { text: "Always in Debt", points: 7 },
-      { text: "Party Animals", points: 6 },
-      { text: "Tech-Savvy", points: 5 },
-      { text: "Overly Liberal", points: 4 },
-      { text: "Inexperienced", points: 3 },
-    ],
-  },
-  {
     Question: "What's a phrase you might hear during finals week?",
     Answer: [
       { text: "I need more coffee!", points: 10 },
@@ -52,19 +39,6 @@ export const questionData = [
     ],
   },
   {
-    Question: "What’s a common excuse for being late/do not come to class?",
-    Answer: [
-      { text: "I overslept", points: 10 },
-      { text: "I misplaced my class schedule.", points: 9 },
-      { text: "My alarm didn’t go off", points: 8 },
-      { text: "There was a last-minute family emergency", points: 7 },
-      { text: "I had to wait for the bus.", points: 6 },
-      { text: "I went to eat Lunch", points: 5 },
-      { text: "There was bad weather.", points: 4 },
-      { text: "I never understand what the professor is teaching", points: 3 },
-    ],
-  },
-  {
     Question: "Name a way people use to try to fall asleep faster",
     Answer: [
       { text: "counting sheep", points: 10 },
@@ -75,72 +49,6 @@ export const questionData = [
       { text: "watching TV/youtube", points: 5 },
       { text: "exercise", points: 4 },
       { text: "taking melatonin supplements", points: 3 },
-    ],
-  },
-  {
-    Question: "What do people do to avoid eye contact?",
-    Answer: [
-      { text: "look at their phone", points: 10 },
-      { text: "look at the ground", points: 9 },
-      { text: "look at something else in the room", points: 8 },
-      { text: "pretend to be busy", points: 7 },
-      { text: "wear sunglasses", points: 6 },
-      { text: "stare blankly ahead", points: 5 },
-      { text: "pretends to look at their watch", points: 4 },
-      { text: "cover their face", points: 3 },
-    ],
-  },
-  {
-    Question: "Name a way coffee can be customized",
-    Answer: [
-      { text: "add milk/cream", points: 10 },
-      { text: "add sugar/sweetener", points: 9 },
-      { text: "add flavored syrups", points: 8 },
-      { text: "add ice", points: 7 },
-      { text: "use plant-based milk", points: 6 },
-      { text: "make it less sweet", points: 5 },
-      { text: "add condensed milk", points: 4 },
-      { text: "add pearl/boba", points: 3 },
-    ],
-  },
-  {
-    Question:
-      "Name a type of assessment/assignments given to university students",
-    Answer: [
-      { text: "research paper", points: 10 },
-      { text: "presentation", points: 9 },
-      { text: "final exam", points: 8 },
-      { text: "group project", points: 7 },
-      { text: "midterm exam", points: 6 },
-      { text: "essay", points: 5 },
-      { text: "quiz", points: 4 },
-      { text: "lab report", points: 3 },
-    ],
-  },
-  {
-    Question: "Name a type of online scam",
-    Answer: [
-      { text: "phishing", points: 10 },
-      { text: "social media scams", points: 9 },
-      { text: "lottery scams", points: 8 },
-      { text: "investment scams", points: 7 },
-      { text: "identity theft", points: 6 },
-      { text: "fake online stores", points: 5 },
-      { text: "malware", points: 4 },
-      { text: "fake job offers", points: 3 },
-    ],
-  },
-  {
-    Question: "Name something you might find in a toolbox.",
-    Answer: [
-      { text: "hammer", points: 10 },
-      { text: "screwdriver", points: 9 },
-      { text: "wrench", points: 8 },
-      { text: "pliers", points: 7 },
-      { text: "nails", points: 6 },
-      { text: "tape measure", points: 5 },
-      { text: "saw", points: 4 },
-      { text: "level", points: 3 },
     ],
   },
   {
@@ -170,32 +78,6 @@ export const questionData = [
     ],
   },
   {
-    Question: "What do people often do on a first date?",
-    Answer: [
-      { text: "dinner", points: 10 },
-      { text: "movie", points: 9 },
-      { text: "go for a walk", points: 8 },
-      { text: "visit a cafe", points: 7 },
-      { text: "bowling", points: 6 },
-      { text: "concert", points: 5 },
-      { text: "have coffee", points: 4 },
-      { text: "go to amusement park", points: 3 },
-    ],
-  },
-  {
-    Question: "Name something that might make you late.",
-    Answer: [
-      { text: "traffic", points: 10 },
-      { text: "oversleeping", points: 9 },
-      { text: "weather", points: 8 },
-      { text: "getting lost", points: 7 },
-      { text: "family issues", points: 6 },
-      { text: "procrastination", points: 5 },
-      { text: "work obligations", points: 4 },
-      { text: "errands", points: 3 },
-    ],
-  },
-  {
     Question: "What decreases a person's aura?",
     Answer: [
       { text: "Farting in public", points: 10 },
@@ -206,19 +88,6 @@ export const questionData = [
       { text: "Answered Incorrectly", points: 5 },
       { text: "Bad Breath", points: 4 },
       { text: "Accidentally dropped an item", points: 3 },
-    ],
-  },
-  {
-    Question: "What do people usually do in bed?",
-    Answer: [
-      { text: "Sleeping", points: 10 },
-      { text: "Scrolling your phone", points: 9 },
-      { text: "Eating", points: 8 },
-      { text: "Reading", points: 7 },
-      { text: "Watching a movie", points: 6 },
-      { text: "Listening to music", points: 5 },
-      { text: "Exercising", points: 4 },
-      { text: "Making out", points: 3 },
     ],
   },
   {
@@ -258,19 +127,6 @@ export const questionData = [
       { text: "Playing games", points: 5 },
       { text: "Studying", points: 4 },
       { text: "Making out", points: 3 },
-    ],
-  },
-  {
-    Question: "Name a famous Hong Kong dish.",
-    Answer: [
-      { text: "Dim sum", points: 10 },
-      { text: "Roast goose", points: 9 },
-      { text: "Wonton noodles", points: 8 },
-      { text: "Congee", points: 7 },
-      { text: "Clay pot rice", points: 6 },
-      { text: "Beef brisket", points: 5 },
-      { text: "Egg tarts", points: 4 },
-      { text: "Pineapple bun", points: 3 },
     ],
   },
 ];

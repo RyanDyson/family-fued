@@ -48,17 +48,18 @@ export default function Game() {
   };
 
   const handleNextQuestion = () => {
-    const randi = Math.floor(Math.random() * currentQuestionData.length);
-    if (!questionsAnswered.includes(randi)) {
-      setCurrentQuestion(randi);
+    if (currentQuestion < currentQuestionData.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
       setRevealedAnswers([]);
-      setQuestionsAnswered([...questionsAnswered, randi]);
       setScore(0);
       setWrongGuesses(0);
       setShowQuestionOverlay(true);
       setTimeout(() => {
         setShowQuestionOverlay(false);
       }, 2000);
+    } else {
+      // Handle the case when all questions have been answered
+      console.log("All questions have been answered.");
     }
   };
 
@@ -97,6 +98,10 @@ export default function Game() {
       default:
         setQuestionData(questionData);
     }
+  };
+
+  const handleChangeTeamName = (index: number, name: string) => {
+    setTeams(teams.map((team, i) => (i === index ? { ...team, name } : team)));
   };
 
   console.log(currentQuestionData.length);
