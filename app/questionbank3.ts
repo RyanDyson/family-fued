@@ -1,5 +1,86 @@
 export const finalQuestionData = [
   {
+    Question: "Name something that starts with the word “chow”",
+    Answer: [
+      { text: "Chow-Mein", points: 10 },
+      { text: "Chowder", points: 9 },
+      { text: "Chow Time", points: 8 },
+      { text: "Chow Down", points: 7 },
+      { text: "Chow Hall", points: 6 },
+      { text: "Chow Hound", points: 5 },
+      { text: "Chow Chow", points: 4 },
+      { text: "Chow Line", points: 3 },
+    ],
+  },
+  {
+    Question: "Fill in the blank: pack of _____",
+    Answer: [
+      { text: "Wolves", points: 10 },
+      { text: "Gum", points: 9 },
+      { text: "Cigs/smokes", points: 8 },
+      { text: "Cards", points: 7 },
+      { text: "Lies", points: 6 },
+      { text: "abs", points: 5 },
+      { text: "thieves", points: 4 },
+      { text: "matches", points: 3 },
+    ],
+  },
+  {
+    Question: "Name Top 8 Most Listened Artist on Spotify in February 2025",
+    Answer: [
+      { text: "Bruno Mars", points: 10 },
+      { text: "The Weeknd", points: 9 },
+      { text: "Lady Gaga", points: 8 },
+      { text: "Billie Eilish", points: 7 },
+      { text: "Kendrick Lamar", points: 6 },
+      { text: "Bad Bunny", points: 5 },
+      { text: "ColdPlay", points: 4 },
+      { text: "Rihanna", points: 3 },
+    ],
+  },
+  {
+    Question: "Whats the worse thing to say on a first date?",
+    Answer: [
+      { text: "So youre paying right?", points: 10 },
+      { text: "My ex used to love this place", points: 9 },
+      { text: "Oh i forgot my wallet", points: 8 },
+      { text: "So how many kids do you want", points: 7 },
+      { text: "nothing", points: 6 },
+      { text: "you look ____ in person", points: 5 },
+      {
+        text: "My mom didn't want me to come on this date, but she won't be an issue anymore.",
+        points: 4,
+      },
+      { text: "Marry me", points: 3 },
+    ],
+  },
+  {
+    Question: "Name a famous Hong Kong actor",
+    Answer: [
+      { text: "Bruce Lee", points: 10 },
+      { text: "Jackie Chan", points: 9 },
+      { text: "Chow Yun-Fat", points: 8 },
+      { text: "Andy Lau", points: 7 },
+      { text: "Jet Li", points: 6 },
+      { text: "Leslie Cheung", points: 5 },
+      { text: "Tony Leung Chiu-wai", points: 4 },
+      { text: "Donnie Yen", points: 3 },
+    ],
+  },
+  {
+    Question: "What to do when you have a headache",
+    Answer: [
+      { text: "Go to the doctor", points: 10 },
+      { text: "Go to amusement parks", points: 9 },
+      { text: "Call a friend", points: 8 },
+      { text: "Go shopping", points: 7 },
+      { text: "Go to sleep", points: 6 },
+      { text: "Eat medicine", points: 5 },
+      { text: "Play games", points: 4 },
+      { text: "Reels scrolling", points: 3 },
+    ],
+  },
+  {
     Question: "What NOT to wear during a job interview",
     Answer: [
       { text: "Birthday suit (Nothing)", points: 10 },
