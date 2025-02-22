@@ -25,7 +25,6 @@ export default function Game() {
   const [revealedAnswers, setRevealedAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
   const [wrongGuesses, setWrongGuesses] = useState(0);
-  const [questionsAnswered, setQuestionsAnswered] = useState<number[]>([]);
   const [teams, setTeams] = useState(Team);
   const [showWrongOverlay, setShowWrongOverlay] = useState(false);
   const [showQuestionOverlay, setShowQuestionOverlay] = useState(false);
@@ -98,10 +97,6 @@ export default function Game() {
       default:
         setQuestionData(questionData);
     }
-  };
-
-  const handleChangeTeamName = (index: number, name: string) => {
-    setTeams(teams.map((team, i) => (i === index ? { ...team, name } : team)));
   };
 
   console.log(currentQuestionData.length);
