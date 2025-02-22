@@ -78,7 +78,7 @@
   .polkadot-bg {
     background-image: radial-gradient(rgb(255, 213, 134) 20%, transparent 21%);
     background-color: rgb(27, 27, 51);
-    background-size: 40px 40px, 40px 40px;
+    background-size: 60px 60px, 60px 60px;
     background-position: 0 0, 0 0;
   }
 }

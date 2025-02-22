@@ -6,9 +6,11 @@ import AnswerList from "./components/AnswerList";
 import ScoreBoard from "./components/ScoreBoard";
 import WrongGuesses from "./components/WrongGuesses";
 import { Button } from "@/components/ui/button";
-import { questionData } from "./question";
+import { questionData } from "./questionbank2";
 import { WrongGuessesOverlay } from "./components/WrongGuessOverlay";
 import { QuestionOverlay } from "./components/QuestionOverlay";
+import { additionalQuestions } from "./questionbank1";
+
 // Sample game data
 const Team = [
   { name: "Team 1", score: 0 },
@@ -17,6 +19,7 @@ const Team = [
 ];
 
 export default function Game() {
+  const [currentQuestionData, setQuestionData] = useState(questionData);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [revealedAnswers, setRevealedAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
@@ -29,7 +32,9 @@ export default function Game() {
   const handleReveal = (index: number) => {
     if (!revealedAnswers.includes(index)) {
       setRevealedAnswers([...revealedAnswers, index]);
-      setScore(score + questionData[currentQuestion].Answer[index].points);
+      setScore(
+        score + currentQuestionData[currentQuestion].Answer[index].points
+      );
     }
   };
 
@@ -42,7 +47,7 @@ export default function Game() {
   };
 
   const handleNextQuestion = () => {
-    const randi = Math.floor(Math.random() * questionData.length);
+    const randi = Math.floor(Math.random() * currentQuestionData.length);
     if (!questionsAnswered.includes(randi)) {
       setCurrentQuestion(randi);
       setRevealedAnswers([]);
@@ -77,10 +82,26 @@ export default function Game() {
     );
   };
 
+  const handleSwtichQuestionBank = (index: number) => {
+    switch (index) {
+      case 1:
+        setQuestionData(questionData);
+        break;
+      case 2:
+        setQuestionData(additionalQuestions);
+        break;
+      default:
+        setQuestionData(questionData);
+    }
+  };
+
+  console.log(currentQuestionData.length);
+  console.log(currentQuestionData);
+
   return (
     <>
       <QuestionOverlay
-        question={questionData[currentQuestion].Question}
+        question={currentQuestionData[currentQuestion].Question}
         show={showQuestionOverlay}
       />
       <WrongGuessesOverlay
@@ -91,29 +112,37 @@ export default function Game() {
         <h1 className="text-2xl font-bold text-center mb-4 bg-blue-800/70 backdrop-blur-md rounded-3xl p-4 border-8 border-orange-400">
           Hall 10 Family Feud: Trivia Night
         </h1>
-        <div className="border-8 border-orange-400 max-w-4xl mx-auto bg-blue-800/70 backdrop-blur-md rounded-3xl p-8">
-          <Question question={questionData[currentQuestion].Question} />
+        <div className="flex justify-center space-x-4 mb-4">
+          <Button onClick={() => handleSwtichQuestionBank(1)}>
+            Qualifying Question Bank
+          </Button>
+          <Button onClick={() => handleSwtichQuestionBank(2)}>
+            Finals Question Bank
+          </Button>
+        </div>
+        <div className="border-8 border-orange-400 max-w-4xl mx-auto bg-blue-800/70 backdrop-blur-md rounded-3xl p-4">
+          <Question question={currentQuestionData[currentQuestion].Question} />
           <AnswerList
-            answers={questionData[currentQuestion].Answer}
+            answers={currentQuestionData[currentQuestion].Answer}
             revealedAnswers={revealedAnswers}
             onReveal={handleReveal}
           />
-          <div className="flex justify-between items-center mt-4">
+          <div className="flex justify-between items-center mt-2">
             <ScoreBoard score={score} />
             <WrongGuesses wrongGuesses={wrongGuesses} />
           </div>
-          <div className="mt-4 flex justify-between">
+          <div className="mt-2 flex justify-between">
             <Button
               onClick={handleWrongGuess}
               disabled={wrongGuesses >= 3}
               variant="destructive"
             >
-              Wrong Answer (X)
+              Strike (X)
             </Button>
 
             <Button
               onClick={handleNextQuestion}
-              disabled={currentQuestion >= questionData.length - 1}
+              disabled={currentQuestion >= currentQuestionData.length - 1}
             >
               Next Question
             </Button>
