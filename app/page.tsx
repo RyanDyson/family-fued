@@ -10,6 +10,7 @@ import { questionData } from "./questionbank2";
 import { WrongGuessesOverlay } from "./components/WrongGuessOverlay";
 import { QuestionOverlay } from "./components/QuestionOverlay";
 import { additionalQuestions } from "./questionbank1";
+import { finalQuestionData } from "./questionbank3";
 
 // Sample game data
 const Team = [
@@ -90,6 +91,9 @@ export default function Game() {
       case 2:
         setQuestionData(additionalQuestions);
         break;
+      case 3:
+        setQuestionData(finalQuestionData);
+        break;
       default:
         setQuestionData(questionData);
     }
@@ -114,9 +118,12 @@ export default function Game() {
         </h1>
         <div className="flex justify-center space-x-4 mb-4">
           <Button onClick={() => handleSwtichQuestionBank(1)}>
-            Qualifying Question Bank
+            Session 1 Question Bank
           </Button>
           <Button onClick={() => handleSwtichQuestionBank(2)}>
+            Session 2 Question Bank
+          </Button>
+          <Button onClick={() => handleSwtichQuestionBank(3)}>
             Finals Question Bank
           </Button>
         </div>
